@@ -9,7 +9,6 @@ import cucumber.api.CucumberOptions;
 @CucumberOptions(
 		features="Features"
 		,glue="CucumberTestSteps"
-		,tags="@review"
 		)
 public class RunCucumberTest {
 

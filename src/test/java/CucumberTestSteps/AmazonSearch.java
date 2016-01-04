@@ -1,9 +1,14 @@
 package CucumberTestSteps;
 
+import java.io.IOException;
+
 import cucumber.api.PendingException;
+import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.api.java.en.And;
+
 
 public class AmazonSearch {
 
@@ -25,4 +30,27 @@ public class AmazonSearch {
 	    throw new PendingException();
 	}
 	
+	@Given("^Do the full test$")
+	public void do_the_full_test() throws Throwable {
+		Pages.AmazonSearch.main("full");
+	}
+
+    @After
+    public void cleanup(cucumber.api.Scenario scenario) throws IOException {
+        try {
+            if (scenario.isFailed()) {
+                System.out.print(">>>SCENARIO FAILURE<<<: '"+scenario.getName()+"'"); 
+                Pages.AmazonSearch.SaveScreenShot(scenario.getName());
+            }
+        }
+        catch (RuntimeException e){
+            throw new RuntimeException(e);
+        }
+        finally {
+            //driverquit();
+        }
+    }
+	
+    
+    
 }
